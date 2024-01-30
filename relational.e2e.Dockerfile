@@ -14,14 +14,17 @@ RUN npm install
 # Copy the application source code
 COPY . .
 
-# Make scripts executable and fix line endings
-COPY ./wait-for-it.sh ./startup.relational.ci.sh ./
-RUN chmod +x ./wait-for-it.sh ./startup.relational.ci.sh \
-    && sed -i 's/\r//g' ./wait-for-it.sh \
-    && sed -i 's/\r//g' ./startup.relational.ci.sh
+# Copy and fix the scripts
+COPY ./wait-for-it.sh /opt/wait-for-it.sh
+COPY ./startup.relational.ci.sh /opt/startup.relational.ci.sh
+
+# Fix line endings and make scripts executable
+RUN sed -i 's/\r//g' /opt/wait-for-it.sh \
+    && sed -i 's/\r//g' /opt/startup.relational.ci.sh \
+    && chmod +x /opt/wait-for-it.sh /opt/startup.relational.ci.sh
 
 # Build the application
 RUN npm run build
 
 # Set the default command
-CMD ["./startup.relational.ci.sh"]
+CMD ["/opt/startup.relational.ci.sh"]
