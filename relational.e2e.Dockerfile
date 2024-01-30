@@ -23,6 +23,9 @@ RUN sed -i 's/\r//g' /opt/wait-for-it.sh \
     && sed -i 's/\r//g' /opt/startup.relational.ci.sh \
     && chmod +x /opt/wait-for-it.sh /opt/startup.relational.ci.sh
 
+# Set environment file
+RUN if [ ! -f .env ]; then cp env-example-relational .env; fi
+
 # Build the application
 RUN npm run build
 

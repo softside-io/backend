@@ -1,3 +1,4 @@
+# Base image
 FROM node:20.11.0-alpine
 
 # Install bash and global npm packages
@@ -17,6 +18,8 @@ COPY . .
 # Make scripts executable and fix line endings
 COPY ./wait-for-it.sh /opt/wait-for-it.sh
 COPY ./startup.document.ci.sh /opt/startup.document.ci.sh
+
+# Fix line endings and make scripts executable
 RUN chmod +x /opt/wait-for-it.sh /opt/startup.document.ci.sh \
     && sed -i 's/\r//g' /opt/wait-for-it.sh \
     && sed -i 's/\r//g' /opt/startup.document.ci.sh
