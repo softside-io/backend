@@ -8,18 +8,18 @@ import { JwtPayloadType } from './types/jwt-payload.type';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  constructor(configService: ConfigService<AllConfigType>) {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get('auth.secret', { infer: true }),
-    });
-  }
+	constructor(configService: ConfigService<AllConfigType>) {
+		super({
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			secretOrKey: configService.get('auth.secret', { infer: true }),
+		});
+	}
 
-  public validate(payload: JwtPayloadType): OrNeverType<JwtPayloadType> {
-    if (!payload.id) {
-      throw new UnauthorizedException();
-    }
+	public validate(payload: JwtPayloadType): OrNeverType<JwtPayloadType> {
+		if (!payload.id) {
+			throw new UnauthorizedException();
+		}
 
-    return payload;
-  }
+		return payload;
+	}
 }

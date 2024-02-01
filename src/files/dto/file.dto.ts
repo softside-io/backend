@@ -3,9 +3,9 @@ import { FileType } from '../domain/file';
 import { IsString } from 'class-validator';
 
 export class FileDto implements FileType {
-  @ApiProperty()
-  @IsString()
-  id: string;
+	@ApiProperty()
+	@IsString()
+	id: string;
 
-  path: string;
+	path: string;
 }

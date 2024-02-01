@@ -13,80 +13,80 @@ import { FileSchemaClass } from 'src/files/infrastructure/persistence/document/e
 export type UserSchemaDocument = HydratedDocument<UserSchemaClass>;
 
 @Schema({
-  timestamps: true,
-  toJSON: {
-    virtuals: true,
-    getters: true,
-  },
+	timestamps: true,
+	toJSON: {
+		virtuals: true,
+		getters: true,
+	},
 })
 export class UserSchemaClass extends EntityDocumentHelper {
-  @Prop({
-    type: String,
-    unique: true,
-  })
-  @Expose({ groups: ['me', 'admin'], toPlainOnly: true })
-  email: string | null;
+	@Prop({
+		type: String,
+		unique: true,
+	})
+	@Expose({ groups: ['me', 'admin'], toPlainOnly: true })
+	email: string | null;
 
-  @Exclude({ toPlainOnly: true })
-  @Prop()
-  password?: string;
+	@Exclude({ toPlainOnly: true })
+	@Prop()
+	password?: string;
 
-  @Exclude({ toPlainOnly: true })
-  previousPassword?: string;
+	@Exclude({ toPlainOnly: true })
+	previousPassword?: string;
 
-  @Expose({ groups: ['me', 'admin'], toPlainOnly: true })
-  @Prop({
-    default: AuthProvidersEnum.email,
-  })
-  provider: string;
+	@Expose({ groups: ['me', 'admin'], toPlainOnly: true })
+	@Prop({
+		default: AuthProvidersEnum.email,
+	})
+	provider: string;
 
-  @Expose({ groups: ['me', 'admin'], toPlainOnly: true })
-  @Prop({
-    type: String,
-    default: null,
-  })
-  socialId?: string | null;
+	@Expose({ groups: ['me', 'admin'], toPlainOnly: true })
+	@Prop({
+		type: String,
+		default: null,
+	})
+	socialId?: string | null;
 
-  @Prop({
-    type: String,
-  })
-  firstName: string | null;
+	@Prop({
+		type: String,
+	})
+	firstName: string | null;
 
-  @Prop({
-    type: String,
-  })
-  lastName: string | null;
+	@Prop({
+		type: String,
+	})
+	lastName: string | null;
 
-  @Prop({
-    type: FileSchemaClass,
-  })
-  @Type(() => FileSchemaClass)
-  photo?: FileSchemaClass | null;
+	@Prop({
+		type: FileSchemaClass,
+	})
+	@Type(() => FileSchemaClass)
+	photo?: FileSchemaClass | null;
 
-  @Prop({
-    type: Role,
-  })
-  role?: Role | null;
+	@Prop({
+		type: Role,
+	})
+	role?: Role | null;
 
-  @Prop({
-    type: Status,
-  })
-  status?: Status;
+	@Prop({
+		type: Status,
+	})
+	status?: Status;
 
-  @Prop({ default: now })
-  createdAt: Date;
+	@Prop({ default: now })
+	createdAt: Date;
 
-  @Prop({ default: now })
-  updatedAt: Date;
+	@Prop({ default: now })
+	updatedAt: Date;
 
-  @Prop()
-  deletedAt: Date;
+	@Prop()
+	deletedAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserSchemaClass);
 
 UserSchema.virtual('previousPassword').get(function () {
-  return this.password;
+	return this.password;
 });
 
 UserSchema.index({ 'role.id': 1 });

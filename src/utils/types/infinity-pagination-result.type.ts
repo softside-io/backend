@@ -1,4 +1,4 @@
 export type InfinityPaginationResultType<T> = Readonly<{
-  data: T[];
-  hasNextPage: boolean;
+	data: T[];
+	hasNextPage: boolean;
 }>;

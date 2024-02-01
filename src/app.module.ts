@@ -32,66 +32,56 @@ import { MongooseConfigService } from './database/mongoose-config.service';
 import { DatabaseConfig } from './database/config/database-config.type';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [
-        databaseConfig,
-        authConfig,
-        appConfig,
-        mailConfig,
-        fileConfig,
-        facebookConfig,
-        googleConfig,
-        twitterConfig,
-        appleConfig,
-      ],
-      envFilePath: ['.env'],
-    }),
-    (databaseConfig() as DatabaseConfig).isDocumentDatabase
-      ? MongooseModule.forRootAsync({
-          useClass: MongooseConfigService,
-        })
-      : TypeOrmModule.forRootAsync({
-          useClass: TypeOrmConfigService,
-          dataSourceFactory: async (options: DataSourceOptions) => {
-            return new DataSource(options).initialize();
-          },
-        }),
-    I18nModule.forRootAsync({
-      useFactory: (configService: ConfigService<AllConfigType>) => ({
-        fallbackLanguage: configService.getOrThrow('app.fallbackLanguage', {
-          infer: true,
-        }),
-        loaderOptions: { path: path.join(__dirname, '/i18n/'), watch: true },
-      }),
-      resolvers: [
-        {
-          use: HeaderResolver,
-          useFactory: (configService: ConfigService<AllConfigType>) => {
-            return [
-              configService.get('app.headerLanguage', {
-                infer: true,
-              }),
-            ];
-          },
-          inject: [ConfigService],
-        },
-      ],
-      imports: [ConfigModule],
-      inject: [ConfigService],
-    }),
-    UsersModule,
-    FilesModule,
-    AuthModule,
-    AuthFacebookModule,
-    AuthGoogleModule,
-    AuthTwitterModule,
-    AuthAppleModule,
-    SessionModule,
-    MailModule,
-    MailerModule,
-    HomeModule,
-  ],
+	imports: [
+		ConfigModule.forRoot({
+			isGlobal: true,
+			load: [databaseConfig, authConfig, appConfig, mailConfig, fileConfig, facebookConfig, googleConfig, twitterConfig, appleConfig],
+			envFilePath: ['.env'],
+		}),
+		(databaseConfig() as DatabaseConfig).isDocumentDatabase
+			? MongooseModule.forRootAsync({
+					useClass: MongooseConfigService,
+				})
+			: TypeOrmModule.forRootAsync({
+					useClass: TypeOrmConfigService,
+					dataSourceFactory: async (options: DataSourceOptions) => {
+						return new DataSource(options).initialize();
+					},
+				}),
+		I18nModule.forRootAsync({
+			useFactory: (configService: ConfigService<AllConfigType>) => ({
+				fallbackLanguage: configService.getOrThrow('app.fallbackLanguage', {
+					infer: true,
+				}),
+				loaderOptions: { path: path.join(__dirname, '/i18n/'), watch: true },
+			}),
+			resolvers: [
+				{
+					use: HeaderResolver,
+					useFactory: (configService: ConfigService<AllConfigType>) => {
+						return [
+							configService.get('app.headerLanguage', {
+								infer: true,
+							}),
+						];
+					},
+					inject: [ConfigService],
+				},
+			],
+			imports: [ConfigModule],
+			inject: [ConfigService],
+		}),
+		UsersModule,
+		FilesModule,
+		AuthModule,
+		AuthFacebookModule,
+		AuthGoogleModule,
+		AuthTwitterModule,
+		AuthAppleModule,
+		SessionModule,
+		MailModule,
+		MailerModule,
+		HomeModule,
+	],
 })
 export class AppModule {}

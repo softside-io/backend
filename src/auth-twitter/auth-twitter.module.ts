@@ -5,9 +5,9 @@ import { AuthTwitterController } from './auth-twitter.controller';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [ConfigModule, AuthModule],
-  providers: [AuthTwitterService],
-  exports: [AuthTwitterService],
-  controllers: [AuthTwitterController],
+	imports: [ConfigModule, AuthModule],
+	providers: [AuthTwitterService],
+	exports: [AuthTwitterService],
+	controllers: [AuthTwitterController],
 })
 export class AuthTwitterModule {}

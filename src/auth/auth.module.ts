@@ -11,15 +11,9 @@ import { SessionModule } from 'src/session/session.module';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 
 @Module({
-  imports: [
-    UsersModule,
-    SessionModule,
-    PassportModule,
-    MailModule,
-    JwtModule.register({}),
-  ],
-  controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, JwtRefreshStrategy, AnonymousStrategy],
-  exports: [AuthService],
+	imports: [UsersModule, SessionModule, PassportModule, MailModule, JwtModule.register({})],
+	controllers: [AuthController],
+	providers: [AuthService, JwtStrategy, JwtRefreshStrategy, AnonymousStrategy],
+	exports: [AuthService],
 })
 export class AuthModule {}

@@ -7,41 +7,41 @@ import { StatusDto } from 'src/statuses/dto/status.dto';
 import { FileDto } from 'src/files/dto/file.dto';
 
 export class CreateUserDto {
-  @ApiProperty({ example: 'test1@example.com' })
-  @Transform(lowerCaseTransformer)
-  @IsNotEmpty()
-  @IsEmail()
-  email: string | null;
+	@ApiProperty({ example: 'test1@example.com' })
+	@Transform(lowerCaseTransformer)
+	@IsNotEmpty()
+	@IsEmail()
+	email: string | null;
 
-  @ApiProperty()
-  @MinLength(6)
-  password?: string;
+	@ApiProperty()
+	@MinLength(6)
+	password?: string;
 
-  provider?: string;
+	provider?: string;
 
-  socialId?: string | null;
+	socialId?: string | null;
 
-  @ApiProperty({ example: 'John' })
-  @IsNotEmpty()
-  firstName: string | null;
+	@ApiProperty({ example: 'John' })
+	@IsNotEmpty()
+	firstName: string | null;
 
-  @ApiProperty({ example: 'Doe' })
-  @IsNotEmpty()
-  lastName: string | null;
+	@ApiProperty({ example: 'Doe' })
+	@IsNotEmpty()
+	lastName: string | null;
 
-  @ApiProperty({ type: () => FileDto })
-  @IsOptional()
-  photo?: FileDto | null;
+	@ApiProperty({ type: () => FileDto })
+	@IsOptional()
+	photo?: FileDto | null;
 
-  @ApiProperty({ type: RoleDto })
-  @IsOptional()
-  @Type(() => RoleDto)
-  role?: RoleDto | null;
+	@ApiProperty({ type: RoleDto })
+	@IsOptional()
+	@Type(() => RoleDto)
+	role?: RoleDto | null;
 
-  @ApiProperty({ type: StatusDto })
-  @IsOptional()
-  @Type(() => StatusDto)
-  status?: StatusDto;
+	@ApiProperty({ type: StatusDto })
+	@IsOptional()
+	@Type(() => StatusDto)
+	status?: StatusDto;
 
-  hash?: string | null;
+	hash?: string | null;
 }

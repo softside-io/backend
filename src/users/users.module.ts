@@ -8,15 +8,12 @@ import { UsersService } from './users.service';
 import { DocumentUserPersistenceModule } from './infrastructure/persistence/document/document-persistence.module';
 import { RelationalUserPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module';
 
-const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)
-  .isDocumentDatabase
-  ? DocumentUserPersistenceModule
-  : RelationalUserPersistenceModule;
+const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig).isDocumentDatabase ? DocumentUserPersistenceModule : RelationalUserPersistenceModule;
 
 @Module({
-  imports: [infrastructurePersistenceModule, FilesModule],
-  controllers: [UsersController],
-  providers: [UsersService],
-  exports: [UsersService, infrastructurePersistenceModule],
+	imports: [infrastructurePersistenceModule, FilesModule],
+	controllers: [UsersController],
+	providers: [UsersService],
+	exports: [UsersService, infrastructurePersistenceModule],
 })
 export class UsersModule {}

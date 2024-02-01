@@ -7,24 +7,19 @@ import { OrNeverType } from '../../utils/types/or-never.type';
 import { AllConfigType } from 'src/config/config.type';
 
 @Injectable()
-export class JwtRefreshStrategy extends PassportStrategy(
-  Strategy,
-  'jwt-refresh',
-) {
-  constructor(configService: ConfigService<AllConfigType>) {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get('auth.refreshSecret', { infer: true }),
-    });
-  }
+export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
+	constructor(configService: ConfigService<AllConfigType>) {
+		super({
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			secretOrKey: configService.get('auth.refreshSecret', { infer: true }),
+		});
+	}
 
-  public validate(
-    payload: JwtRefreshPayloadType,
-  ): OrNeverType<JwtRefreshPayloadType> {
-    if (!payload.sessionId) {
-      throw new UnauthorizedException();
-    }
+	public validate(payload: JwtRefreshPayloadType): OrNeverType<JwtRefreshPayloadType> {
+		if (!payload.sessionId) {
+			throw new UnauthorizedException();
+		}
 
-    return payload;
-  }
+		return payload;
+	}
 }
