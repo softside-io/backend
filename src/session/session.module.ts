@@ -5,14 +5,11 @@ import { DocumentSessionPersistenceModule } from './infrastructure/persistence/d
 import { RelationalSessionPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module';
 import { SessionService } from './session.service';
 
-const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)
-  .isDocumentDatabase
-  ? DocumentSessionPersistenceModule
-  : RelationalSessionPersistenceModule;
+const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig).isDocumentDatabase ? DocumentSessionPersistenceModule : RelationalSessionPersistenceModule;
 
 @Module({
-  imports: [infrastructurePersistenceModule],
-  providers: [SessionService],
-  exports: [SessionService, infrastructurePersistenceModule],
+	imports: [infrastructurePersistenceModule],
+	providers: [SessionService],
+	exports: [SessionService, infrastructurePersistenceModule],
 })
 export class SessionModule {}

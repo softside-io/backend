@@ -1,4 +1,4 @@
 export type FacebookConfig = {
-  appId?: string;
-  appSecret?: string;
+	appId?: string;
+	appSecret?: string;
 };

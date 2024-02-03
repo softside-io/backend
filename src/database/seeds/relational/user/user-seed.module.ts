@@ -4,8 +4,8 @@ import { UserEntity } from 'src/users/infrastructure/persistence/relational/enti
 import { UserSeedService } from './user-seed.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity])],
-  providers: [UserSeedService],
-  exports: [UserSeedService],
+	imports: [TypeOrmModule.forFeature([UserEntity])],
+	providers: [UserSeedService],
+	exports: [UserSeedService],
 })
 export class UserSeedModule {}

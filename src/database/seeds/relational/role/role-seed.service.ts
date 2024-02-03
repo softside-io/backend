@@ -6,40 +6,40 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class RoleSeedService {
-  constructor(
-    @InjectRepository(RoleEntity)
-    private repository: Repository<RoleEntity>,
-  ) {}
+	constructor(
+		@InjectRepository(RoleEntity)
+		private repository: Repository<RoleEntity>,
+	) {}
 
-  async run() {
-    const countUser = await this.repository.count({
-      where: {
-        id: RoleEnum.user,
-      },
-    });
+	async run() {
+		const countUser = await this.repository.count({
+			where: {
+				id: RoleEnum.user,
+			},
+		});
 
-    if (!countUser) {
-      await this.repository.save(
-        this.repository.create({
-          id: RoleEnum.user,
-          name: 'User',
-        }),
-      );
-    }
+		if (!countUser) {
+			await this.repository.save(
+				this.repository.create({
+					id: RoleEnum.user,
+					name: 'User',
+				}),
+			);
+		}
 
-    const countAdmin = await this.repository.count({
-      where: {
-        id: RoleEnum.admin,
-      },
-    });
+		const countAdmin = await this.repository.count({
+			where: {
+				id: RoleEnum.admin,
+			},
+		});
 
-    if (!countAdmin) {
-      await this.repository.save(
-        this.repository.create({
-          id: RoleEnum.admin,
-          name: 'Admin',
-        }),
-      );
-    }
-  }
+		if (!countAdmin) {
+			await this.repository.save(
+				this.repository.create({
+					id: RoleEnum.admin,
+					name: 'Admin',
+				}),
+			);
+		}
+	}
 }

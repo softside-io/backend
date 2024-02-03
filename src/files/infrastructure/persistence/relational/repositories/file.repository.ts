@@ -10,25 +10,21 @@ import { FileType } from '../../../../domain/file';
 
 @Injectable()
 export class FileRelationalRepository implements FileRepository {
-  constructor(
-    @InjectRepository(FileEntity)
-    private readonly fileRepository: Repository<FileEntity>,
-  ) {}
+	constructor(
+		@InjectRepository(FileEntity)
+		private readonly fileRepository: Repository<FileEntity>,
+	) {}
 
-  async create(data: FileType): Promise<FileType> {
-    const persistenceModel = FileMapper.toPersistence(data);
-    return this.fileRepository.save(
-      this.fileRepository.create(persistenceModel),
-    );
-  }
+	async create(data: FileType): Promise<FileType> {
+		const persistenceModel = FileMapper.toPersistence(data);
+		return this.fileRepository.save(this.fileRepository.create(persistenceModel));
+	}
 
-  async findOne(
-    fields: EntityCondition<FileType>,
-  ): Promise<NullableType<FileType>> {
-    const entity = await this.fileRepository.findOne({
-      where: fields as FindOptionsWhere<FileEntity>,
-    });
+	async findOne(fields: EntityCondition<FileType>): Promise<NullableType<FileType>> {
+		const entity = await this.fileRepository.findOne({
+			where: fields as FindOptionsWhere<FileEntity>,
+		});
 
-    return entity ? FileMapper.toDomain(entity) : null;
-  }
+		return entity ? FileMapper.toDomain(entity) : null;
+	}
 }

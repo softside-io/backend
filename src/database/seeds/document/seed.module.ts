@@ -7,16 +7,16 @@ import { MongooseConfigService } from 'src/database/mongoose-config.service';
 import { UserSeedModule } from './user/user-seed.module';
 
 @Module({
-  imports: [
-    UserSeedModule,
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [databaseConfig, appConfig],
-      envFilePath: ['.env'],
-    }),
-    MongooseModule.forRootAsync({
-      useClass: MongooseConfigService,
-    }),
-  ],
+	imports: [
+		UserSeedModule,
+		ConfigModule.forRoot({
+			isGlobal: true,
+			load: [databaseConfig, appConfig],
+			envFilePath: ['.env'],
+		}),
+		MongooseModule.forRootAsync({
+			useClass: MongooseConfigService,
+		}),
+	],
 })
 export class SeedModule {}

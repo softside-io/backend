@@ -4,8 +4,8 @@ import { RoleEntity } from 'src/roles/infrastructure/persistence/relational/enti
 import { RoleSeedService } from './role-seed.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RoleEntity])],
-  providers: [RoleSeedService],
-  exports: [RoleSeedService],
+	imports: [TypeOrmModule.forFeature([RoleEntity])],
+	providers: [RoleSeedService],
+	exports: [RoleSeedService],
 })
 export class RoleSeedModule {}

@@ -10,21 +10,21 @@ import { StatusSeedModule } from './status/status-seed.module';
 import { UserSeedModule } from './user/user-seed.module';
 
 @Module({
-  imports: [
-    RoleSeedModule,
-    StatusSeedModule,
-    UserSeedModule,
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [databaseConfig, appConfig],
-      envFilePath: ['.env'],
-    }),
-    TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService,
-      dataSourceFactory: async (options: DataSourceOptions) => {
-        return new DataSource(options).initialize();
-      },
-    }),
-  ],
+	imports: [
+		RoleSeedModule,
+		StatusSeedModule,
+		UserSeedModule,
+		ConfigModule.forRoot({
+			isGlobal: true,
+			load: [databaseConfig, appConfig],
+			envFilePath: ['.env'],
+		}),
+		TypeOrmModule.forRootAsync({
+			useClass: TypeOrmConfigService,
+			dataSourceFactory: async (options: DataSourceOptions) => {
+				return new DataSource(options).initialize();
+			},
+		}),
+	],
 })
 export class SeedModule {}

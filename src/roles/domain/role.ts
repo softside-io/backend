@@ -1,9 +1,9 @@
 import { Allow, IsNumber } from 'class-validator';
 
 export class Role {
-  @IsNumber()
-  id: number;
+	@IsNumber()
+	id: number;
 
-  @Allow()
-  name?: string;
+	@Allow()
+	name?: string;
 }
