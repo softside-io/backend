@@ -1,4 +1,43 @@
 {
-  "markdown.extension.toc.levels": "2..6",
-  "markdown.extension.orderedList.autoRenumber": false
+	"markdown.extension.toc.levels": "2..6",
+	"markdown.extension.orderedList.autoRenumber": false,
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnPaste": true,
+	"prettier.useEditorConfig": false,
+	"prettier.configPath": ".prettierrc",
+	"typescript.format.semicolons": "insert",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.fixAll.stylelint": "explicit"
+	},
+	"explorer.compactFolders": false,
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#043673",
+		"activityBar.background": "#043673",
+		"activityBar.foreground": "#e7e7e7",
+		"activityBar.inactiveForeground": "#e7e7e799",
+		"activityBarBadge.background": "#d80865",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"commandCenter.border": "#e7e7e799",
+		"sash.hoverBorder": "#043673",
+		"statusBar.background": "#021f42",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#043673",
+		"statusBarItem.remoteBackground": "#021f42",
+		"statusBarItem.remoteForeground": "#e7e7e7",
+		"titleBar.activeBackground": "#021f42",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#021f4299",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#021f42",
+	"npm.enableRunFromFolder": true,
+	"terminal.integrated.profiles.linux": {
+		"bash": {
+			"path": "bash",
+			"icon": "terminal-bash",
+			"args": ["-i"]
+		}
+	}
 }

@@ -1,0 +1,80 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Focus on Terminal on Startup",
+			"type": "shell",
+			"command": "echo '☠️☠️☠️☠️☠️    Welcome to Softside backend application ☠️☠️☠️☠️☠️'",
+			"presentation": {
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"hide": true,
+			"problemMatcher": [],
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+		},
+		{
+			"label": "Initialize development mode",
+			"type": "shell",
+			"command": "node",
+			"args": ["init-task.mjs"],
+			"hide": true,
+			"problemMatcher": {
+				"owner": "custom",
+				"pattern": {
+					"regexp": ".*",
+					"file": 1,
+					"location": 2,
+					"message": 3
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": ".*",
+					"endsPattern": ".*"
+				}
+			},
+			"isBackground": false,
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
+			"dependsOn": ["Focus on Terminal on Startup"]
+		},
+		{
+			"label": "Start Backend",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "start:dev"],
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "typescript",
+				"pattern": {
+					"regexp": "^\\s+(.*)$",
+					"file": 1,
+					"location": 2,
+					"message": 3
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^.*Building tailwind for library*$",
+					"endsPattern": "^.*Compilation complete. Watching for file changes...*$"
+				}
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
+			"dependsOn": ["Initialize development mode"]
+		}
+	]
+}
