@@ -41,7 +41,7 @@ export class AuthService {
 				{
 					status: HttpStatus.UNPROCESSABLE_ENTITY,
 					errors: {
-						email: 'notFound',
+						email: `${loginDto.email} doesn't exist!`,
 					},
 				},
 				HttpStatus.UNPROCESSABLE_ENTITY,
