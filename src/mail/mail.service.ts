@@ -33,7 +33,7 @@ export class MailService {
 		const url = new URL(
 			this.configService.getOrThrow('app.frontendDomain', {
 				infer: true,
-			}) + '/confirm-email',
+			}) + '/auth/confirm-email',
 		);
 		url.searchParams.set('hash', mailData.data.hash);
 
@@ -83,7 +83,7 @@ export class MailService {
 		const url = new URL(
 			this.configService.getOrThrow('app.frontendDomain', {
 				infer: true,
-			}) + '/password-change',
+			}) + '/auth/reset-password',
 		);
 		url.searchParams.set('hash', mailData.data.hash);
 
