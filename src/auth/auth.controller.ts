@@ -11,6 +11,7 @@ import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
 import { LoginResponseType } from './types/login-response.type';
 import { NullableType } from '../utils/types/nullable.type';
 import { User } from 'src/users/domain/user';
+import { AuthResentEmailDto } from './dto/auth-resent-email.dto';
 
 @ApiTags('Auth')
 @Controller({
@@ -39,6 +40,12 @@ export class AuthController {
 	@HttpCode(HttpStatus.NO_CONTENT)
 	async confirmEmail(@Body() confirmEmailDto: AuthConfirmEmailDto): Promise<void> {
 		return this.service.confirmEmail(confirmEmailDto.hash);
+	}
+
+	@Post('email/resent')
+	@HttpCode(HttpStatus.NO_CONTENT)
+	async sendVerificationEmail(@Body() resentEmailDto: AuthResentEmailDto): Promise<void> {
+		return this.service.sendVerificationEmail(resentEmailDto);
 	}
 
 	@Post('forgot/password')
