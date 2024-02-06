@@ -20,7 +20,7 @@ import { User } from 'src/users/domain/user';
 import { Session } from 'src/session/domain/session';
 import { UsersService } from 'src/users/users.service';
 import { SessionService } from 'src/session/session.service';
-import { AuthResentEmailDto } from './dto/auth-resent-email.dto';
+import { AuthResendEmailDto } from './dto/auth-resend-email.dto';
 
 @Injectable()
 export class AuthService {
@@ -267,8 +267,8 @@ export class AuthService {
 		await this.usersService.update(user.id, user);
 	}
 
-	async sendVerificationEmail(resentEmailDto: AuthResentEmailDto): Promise<void> {
-		const user = await this.usersService.findOne({ email: resentEmailDto.email });
+	async sendVerificationEmail(resendEmailDto: AuthResendEmailDto): Promise<void> {
+		const user = await this.usersService.findOne({ email: resendEmailDto.email });
 
 		if (!user) {
 			throw new HttpException(
@@ -276,6 +276,18 @@ export class AuthService {
 					status: HttpStatus.UNPROCESSABLE_ENTITY,
 					errors: {
 						email: 'emailNotExists',
+					},
+				},
+				HttpStatus.UNPROCESSABLE_ENTITY,
+			);
+		}
+
+		if (user.status?.id == StatusEnum.active) {
+			throw new HttpException(
+				{
+					status: HttpStatus.UNPROCESSABLE_ENTITY,
+					errors: {
+						email: 'emailVerified',
 					},
 				},
 				HttpStatus.UNPROCESSABLE_ENTITY,
@@ -295,8 +307,9 @@ export class AuthService {
 				}),
 			},
 		);
+
 		await this.mailService.userSignUp({
-			to: resentEmailDto.email,
+			to: resendEmailDto.email,
 			data: {
 				hash,
 			},
