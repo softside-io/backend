@@ -19,6 +19,8 @@ export class UserMapper {
 		if (raw.photo) {
 			user.photo = FileMapper.toDomain(raw.photo);
 		}
+		user.phone = raw.phone;
+		user.address = raw.address;
 		user.role = raw.role;
 		user.status = raw.status;
 		user.createdAt = raw.createdAt;
@@ -61,6 +63,8 @@ export class UserMapper {
 		userEntity.socialId = user.socialId;
 		userEntity.firstName = user.firstName;
 		userEntity.lastName = user.lastName;
+		userEntity.phone = user.phone;
+		userEntity.address = user.address;
 		userEntity.photo = photo;
 		userEntity.role = role;
 		userEntity.status = status;

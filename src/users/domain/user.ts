@@ -23,6 +23,8 @@ export class User {
 	firstName?: string;
 	lastName?: string;
 	photo?: FileType | null;
+	address?: string;
+	phone?: string;
 	role?: Role | null;
 	status?: Status;
 	createdAt: Date;

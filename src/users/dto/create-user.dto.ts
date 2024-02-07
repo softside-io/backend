@@ -42,4 +42,8 @@ export class CreateUserDto {
 	status?: StatusDto;
 
 	hash?: string | null;
+
+	phone?: string;
+
+	address?: string;
 }

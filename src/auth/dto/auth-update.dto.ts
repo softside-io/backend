@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, MinLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsPhoneNumber, MinLength } from 'class-validator';
 import { FileDto } from 'src/files/dto/file.dto';
 
 export class AuthUpdateDto {
@@ -16,6 +16,15 @@ export class AuthUpdateDto {
 	@IsOptional()
 	@IsNotEmpty({ message: 'mustBeNotEmpty' })
 	lastName?: string;
+
+	@ApiProperty({ example: '+1 000000' })
+	@IsOptional()
+	@IsPhoneNumber()
+	phone?: string;
+
+	@ApiProperty({ example: 'Address' })
+	@IsOptional()
+	address?: string;
 
 	@ApiProperty()
 	@IsOptional()
