@@ -22,12 +22,10 @@ export class CreateUserDto {
 	socialId?: string | null;
 
 	@ApiProperty({ example: 'John' })
-	@IsNotEmpty()
-	firstName: string | null;
+	firstName?: string;
 
 	@ApiProperty({ example: 'Doe' })
-	@IsNotEmpty()
-	lastName: string | null;
+	lastName?: string;
 
 	@ApiProperty({ type: () => FileDto })
 	@IsOptional()

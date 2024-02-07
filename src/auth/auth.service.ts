@@ -140,8 +140,8 @@ export class AuthService {
 
 			user = await this.usersService.create({
 				email: socialEmail ?? null,
-				firstName: socialData.firstName ?? null,
-				lastName: socialData.lastName ?? null,
+				firstName: socialData.firstName ?? undefined,
+				lastName: socialData.lastName ?? undefined,
 				socialId: socialData.id,
 				provider: authProvider,
 				role,
