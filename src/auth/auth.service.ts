@@ -132,10 +132,10 @@ export class AuthService {
 			user = userByEmail;
 		} else {
 			const role = {
-				id: RoleEnum.user,
+				id: RoleEnum.User,
 			};
 			const status = {
-				id: StatusEnum.active,
+				id: StatusEnum.Active,
 			};
 
 			user = await this.usersService.create({
@@ -192,10 +192,10 @@ export class AuthService {
 			...dto,
 			email: dto.email,
 			role: {
-				id: RoleEnum.user,
+				id: RoleEnum.User,
 			},
 			status: {
-				id: StatusEnum.inactive,
+				id: StatusEnum.InActive,
 			},
 		});
 
@@ -250,7 +250,7 @@ export class AuthService {
 			id: userId,
 		});
 
-		if (!user || user?.status?.id !== StatusEnum.inactive) {
+		if (!user || user?.status?.id !== StatusEnum.InActive) {
 			throw new HttpException(
 				{
 					status: HttpStatus.NOT_FOUND,
@@ -261,7 +261,7 @@ export class AuthService {
 		}
 
 		user.status = {
-			id: StatusEnum.active,
+			id: StatusEnum.Active,
 		};
 
 		await this.usersService.update(user.id, user);
@@ -282,7 +282,7 @@ export class AuthService {
 			);
 		}
 
-		if (user.status?.id == StatusEnum.active) {
+		if (user.status?.id == StatusEnum.Active) {
 			throw new HttpException(
 				{
 					status: HttpStatus.UNPROCESSABLE_ENTITY,

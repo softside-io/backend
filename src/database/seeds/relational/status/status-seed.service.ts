@@ -17,11 +17,11 @@ export class StatusSeedService {
 		if (!count) {
 			await this.repository.save([
 				this.repository.create({
-					id: StatusEnum.active,
+					id: StatusEnum.Active,
 					name: 'Active',
 				}),
 				this.repository.create({
-					id: StatusEnum.inactive,
+					id: StatusEnum.InActive,
 					name: 'Inactive',
 				}),
 			]);

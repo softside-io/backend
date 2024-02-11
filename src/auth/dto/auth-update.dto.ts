@@ -3,36 +3,36 @@ import { IsNotEmpty, IsOptional, IsPhoneNumber, MinLength } from 'class-validato
 import { FileDto } from 'src/files/dto/file.dto';
 
 export class AuthUpdateDto {
-	@ApiProperty({ type: () => FileDto })
+	@ApiProperty({ required: false })
 	@IsOptional()
 	photo?: FileDto;
 
-	@ApiProperty({ example: 'John' })
+	@ApiProperty({ example: 'John', required: false })
 	@IsOptional()
 	@IsNotEmpty({ message: 'mustBeNotEmpty' })
 	firstName?: string;
 
-	@ApiProperty({ example: 'Doe' })
+	@ApiProperty({ example: 'Doe', required: false })
 	@IsOptional()
 	@IsNotEmpty({ message: 'mustBeNotEmpty' })
 	lastName?: string;
 
-	@ApiProperty({ example: '+1 000000' })
+	@ApiProperty({ example: '+1 000000', required: false })
 	@IsOptional()
 	@IsPhoneNumber()
 	phone?: string;
 
-	@ApiProperty({ example: 'Address' })
+	@ApiProperty({ example: 'Address', required: false })
 	@IsOptional()
 	address?: string;
 
-	@ApiProperty()
+	@ApiProperty({ required: false })
 	@IsOptional()
 	@IsNotEmpty()
 	@MinLength(6)
 	password?: string;
 
-	@ApiProperty()
+	@ApiProperty({ required: false })
 	@IsOptional()
 	@IsNotEmpty({ message: 'mustBeNotEmpty' })
 	oldPassword?: string;

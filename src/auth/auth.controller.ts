@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Request, Post, UseGuards, Patch, Delete, SerializeOptions } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
 import { AuthForgotPasswordDto } from './dto/auth-forgot-password.dto';
 import { AuthConfirmEmailDto } from './dto/auth-confirm-email.dto';
@@ -12,6 +12,7 @@ import { LoginResponseType } from './types/login-response.type';
 import { NullableType } from '../utils/types/nullable.type';
 import { User } from 'src/users/domain/user';
 import { AuthResendEmailDto } from './dto/auth-resend-email.dto';
+import { ModelVoid } from 'src/users/dto/void.dto';
 
 @ApiTags('Auth')
 @Controller({
@@ -26,36 +27,52 @@ export class AuthController {
 	})
 	@Post('email/login')
 	@HttpCode(HttpStatus.OK)
+	@ApiOkResponse({ type: LoginResponseType })
 	public login(@Body() loginDto: AuthEmailLoginDto): Promise<LoginResponseType> {
 		return this.service.validateLogin(loginDto);
 	}
 
 	@Post('email/register')
 	@HttpCode(HttpStatus.NO_CONTENT)
+	@ApiNoContentResponse({
+		type: ModelVoid,
+	})
 	async register(@Body() createUserDto: AuthRegisterLoginDto): Promise<void> {
 		return this.service.register(createUserDto);
 	}
 
 	@Post('email/confirm')
 	@HttpCode(HttpStatus.NO_CONTENT)
+	@ApiNoContentResponse({
+		type: ModelVoid,
+	})
 	async confirmEmail(@Body() confirmEmailDto: AuthConfirmEmailDto): Promise<void> {
 		return this.service.confirmEmail(confirmEmailDto.hash);
 	}
 
 	@Post('email/resend')
 	@HttpCode(HttpStatus.NO_CONTENT)
+	@ApiNoContentResponse({
+		type: ModelVoid,
+	})
 	async sendVerificationEmail(@Body() resendEmailDto: AuthResendEmailDto): Promise<void> {
 		return this.service.sendVerificationEmail(resendEmailDto);
 	}
 
 	@Post('forgot/password')
 	@HttpCode(HttpStatus.NO_CONTENT)
+	@ApiNoContentResponse({
+		type: ModelVoid,
+	})
 	async forgotPassword(@Body() forgotPasswordDto: AuthForgotPasswordDto): Promise<void> {
 		return this.service.forgotPassword(forgotPasswordDto.email);
 	}
 
 	@Post('reset/password')
 	@HttpCode(HttpStatus.NO_CONTENT)
+	@ApiNoContentResponse({
+		type: ModelVoid,
+	})
 	resetPassword(@Body() resetPasswordDto: AuthResetPasswordDto): Promise<void> {
 		return this.service.resetPassword(resetPasswordDto.hash, resetPasswordDto.password);
 	}
@@ -67,6 +84,7 @@ export class AuthController {
 	@Get('me')
 	@UseGuards(AuthGuard('jwt'))
 	@HttpCode(HttpStatus.OK)
+	@ApiOkResponse({ type: User })
 	public me(@Request() request): Promise<NullableType<User>> {
 		return this.service.me(request.user);
 	}
@@ -78,6 +96,7 @@ export class AuthController {
 	@Post('refresh')
 	@UseGuards(AuthGuard('jwt-refresh'))
 	@HttpCode(HttpStatus.OK)
+	@ApiOkResponse({ type: LoginResponseType })
 	public refresh(@Request() request): Promise<Omit<LoginResponseType, 'user'>> {
 		return this.service.refreshToken({
 			sessionId: request.user.sessionId,
@@ -88,6 +107,9 @@ export class AuthController {
 	@Post('logout')
 	@UseGuards(AuthGuard('jwt'))
 	@HttpCode(HttpStatus.NO_CONTENT)
+	@ApiNoContentResponse({
+		type: ModelVoid,
+	})
 	public async logout(@Request() request): Promise<void> {
 		await this.service.logout({
 			sessionId: request.user.sessionId,

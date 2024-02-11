@@ -27,23 +27,25 @@ export class CreateUserDto {
 	@ApiProperty({ example: 'Doe' })
 	lastName?: string;
 
-	@ApiProperty({ type: () => FileDto })
+	@ApiProperty({ type: FileDto, required: false })
 	@IsOptional()
 	photo?: FileDto | null;
 
-	@ApiProperty({ type: RoleDto })
+	@ApiProperty({ type: RoleDto, required: false })
 	@IsOptional()
 	@Type(() => RoleDto)
 	role?: RoleDto | null;
 
-	@ApiProperty({ type: StatusDto })
+	@ApiProperty({ type: StatusDto, required: false })
 	@IsOptional()
 	@Type(() => StatusDto)
 	status?: StatusDto;
 
 	hash?: string | null;
 
+	@ApiProperty()
 	phone?: string;
 
+	@ApiProperty()
 	address?: string;
 }

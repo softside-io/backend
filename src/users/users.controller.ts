@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, HttpStatus, HttpCode, SerializeOptions } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiNoContentResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../roles/roles.decorator';
 import { RoleEnum } from '../roles/roles.enum';
 import { AuthGuard } from '@nestjs/passport';
@@ -12,9 +12,10 @@ import { NullableType } from '../utils/types/nullable.type';
 import { QueryUserDto } from './dto/query-user.dto';
 import { User } from './domain/user';
 import { UsersService } from './users.service';
+import { ModelVoid } from './dto/void.dto';
 
 @ApiBearerAuth()
-@Roles(RoleEnum.admin)
+@Roles(RoleEnum.Admin)
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('Users')
 @Controller({
@@ -29,6 +30,9 @@ export class UsersController {
 	})
 	@Post()
 	@HttpCode(HttpStatus.CREATED)
+	@ApiCreatedResponse({
+		type: User,
+	})
 	create(@Body() createProfileDto: CreateUserDto): Promise<User> {
 		return this.usersService.create(createProfileDto);
 	}
@@ -93,6 +97,9 @@ export class UsersController {
 		required: true,
 	})
 	@HttpCode(HttpStatus.NO_CONTENT)
+	@ApiNoContentResponse({
+		type: ModelVoid,
+	})
 	remove(@Param('id') id: User['id']): Promise<void> {
 		return this.usersService.softDelete(id);
 	}
