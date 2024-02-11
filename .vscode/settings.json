@@ -7,6 +7,7 @@
 	"prettier.useEditorConfig": false,
 	"prettier.configPath": ".prettierrc",
 	"typescript.format.semicolons": "insert",
+	"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit",
 		"source.fixAll.stylelint": "explicit"
