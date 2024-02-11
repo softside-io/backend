@@ -134,7 +134,6 @@ function removeExportVoidType(filePath) {
 	try {
 		let data = fs.readFileSync(filePath, 'utf8');
 		data = data.replace(/export \* from \'\.\/modelVoid\';\n?/, '');
-		console.log(data);
 
 		fs.writeFileSync(filePath, data, 'utf8');
 		console.log(
