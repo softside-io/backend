@@ -12,7 +12,6 @@ import { LoginResponseType } from './types/login-response.type';
 import { NullableType } from '../utils/types/nullable.type';
 import { User } from 'src/users/domain/user';
 import { AuthResendEmailDto } from './dto/auth-resend-email.dto';
-import { ModelVoid } from 'src/users/dto/void.dto';
 
 @ApiTags('Auth')
 @Controller({
@@ -34,45 +33,35 @@ export class AuthController {
 
 	@Post('email/register')
 	@HttpCode(HttpStatus.NO_CONTENT)
-	@ApiNoContentResponse({
-		type: ModelVoid,
-	})
+	@ApiNoContentResponse()
 	async register(@Body() createUserDto: AuthRegisterLoginDto): Promise<void> {
 		return this.service.register(createUserDto);
 	}
 
 	@Post('email/confirm')
 	@HttpCode(HttpStatus.NO_CONTENT)
-	@ApiNoContentResponse({
-		type: ModelVoid,
-	})
+	@ApiNoContentResponse()
 	async confirmEmail(@Body() confirmEmailDto: AuthConfirmEmailDto): Promise<void> {
 		return this.service.confirmEmail(confirmEmailDto.hash);
 	}
 
 	@Post('email/resend')
 	@HttpCode(HttpStatus.NO_CONTENT)
-	@ApiNoContentResponse({
-		type: ModelVoid,
-	})
+	@ApiNoContentResponse()
 	async sendVerificationEmail(@Body() resendEmailDto: AuthResendEmailDto): Promise<void> {
 		return this.service.sendVerificationEmail(resendEmailDto);
 	}
 
 	@Post('forgot/password')
 	@HttpCode(HttpStatus.NO_CONTENT)
-	@ApiNoContentResponse({
-		type: ModelVoid,
-	})
+	@ApiNoContentResponse()
 	async forgotPassword(@Body() forgotPasswordDto: AuthForgotPasswordDto): Promise<void> {
 		return this.service.forgotPassword(forgotPasswordDto.email);
 	}
 
 	@Post('reset/password')
 	@HttpCode(HttpStatus.NO_CONTENT)
-	@ApiNoContentResponse({
-		type: ModelVoid,
-	})
+	@ApiNoContentResponse()
 	resetPassword(@Body() resetPasswordDto: AuthResetPasswordDto): Promise<void> {
 		return this.service.resetPassword(resetPasswordDto.hash, resetPasswordDto.password);
 	}
@@ -107,9 +96,7 @@ export class AuthController {
 	@Post('logout')
 	@UseGuards(AuthGuard('jwt'))
 	@HttpCode(HttpStatus.NO_CONTENT)
-	@ApiNoContentResponse({
-		type: ModelVoid,
-	})
+	@ApiNoContentResponse()
 	public async logout(@Request() request): Promise<void> {
 		await this.service.logout({
 			sessionId: request.user.sessionId,

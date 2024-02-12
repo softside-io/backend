@@ -12,7 +12,6 @@ import { NullableType } from '../utils/types/nullable.type';
 import { QueryUserDto } from './dto/query-user.dto';
 import { User } from './domain/user';
 import { UsersService } from './users.service';
-import { ModelVoid } from './dto/void.dto';
 
 @ApiBearerAuth()
 @Roles(RoleEnum.Admin)
@@ -97,9 +96,7 @@ export class UsersController {
 		required: true,
 	})
 	@HttpCode(HttpStatus.NO_CONTENT)
-	@ApiNoContentResponse({
-		type: ModelVoid,
-	})
+	@ApiNoContentResponse()
 	remove(@Param('id') id: User['id']): Promise<void> {
 		return this.usersService.softDelete(id);
 	}
