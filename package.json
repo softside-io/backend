@@ -31,7 +31,7 @@
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "env-cmd jest --config ./test/jest-e2e.json",
 		"prepare": "is-ci || husky install",
-		"commit": "node commit.mjs"
+		"commit": "node .scripts/commit.mjs"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "3.501.0",
