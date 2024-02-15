@@ -1,8 +1,9 @@
 import { Controller, Get, Param, Post, Response, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { FilesService } from './files.service';
+import { FileType } from './domain/file';
 
 @ApiTags('Files')
 @Controller({
@@ -16,6 +17,9 @@ export class FilesController {
 	@UseGuards(AuthGuard('jwt'))
 	@Post('upload')
 	@ApiConsumes('multipart/form-data')
+	@ApiResponse({
+		type: FileType,
+	})
 	@ApiBody({
 		schema: {
 			type: 'object',

@@ -6,6 +6,7 @@ export class FileType {
 	@Allow()
 	id: string;
 
+	@ApiProperty({ example: 'image URL' })
 	@Allow()
 	path: string;
 }

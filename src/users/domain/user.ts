@@ -5,7 +5,7 @@ import { Role } from 'src/roles/domain/role';
 import { Status } from 'src/statuses/domain/status';
 
 export class User {
-	@ApiProperty({ anyOf: [{ type: 'string' }, { type: 'number' }] })
+	@ApiProperty({ anyOf: [{ type: 'string' }] })
 	id: number | string;
 
 	@Expose({ groups: ['me', 'admin'] })
