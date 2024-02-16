@@ -1,6 +1,7 @@
 {
-  "recommendations": [
-    "yzhang.markdown-all-in-one",
-    "DavidAnson.vscode-markdownlint"
-  ]
+	"recommendations": [
+		"yzhang.markdown-all-in-one",
+		"DavidAnson.vscode-markdownlint",
+		"sandipchitale.vscode-reload-window"
+	]
 }
