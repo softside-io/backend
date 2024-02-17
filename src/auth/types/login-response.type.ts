@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/users/domain/user';
 
-export class LoginResponseType
+export class SessionType
 	implements
 		Readonly<{
 			token: string;

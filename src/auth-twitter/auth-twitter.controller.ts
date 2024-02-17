@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from '../auth/auth.service';
 import { AuthTwitterService } from './auth-twitter.service';
 import { AuthTwitterLoginDto } from './dto/auth-twitter-login.dto';
-import { LoginResponseType } from '../auth/types/login-response.type';
+import { SessionType } from '../auth/types/login-response.type';
 
 @ApiTags('Auth')
 @Controller({
@@ -21,7 +21,7 @@ export class AuthTwitterController {
 	})
 	@Post('login')
 	@HttpCode(HttpStatus.OK)
-	async login(@Body() loginDto: AuthTwitterLoginDto): Promise<LoginResponseType> {
+	async login(@Body() loginDto: AuthTwitterLoginDto): Promise<SessionType> {
 		const socialData = await this.authTwitterService.getProfileByToken(loginDto);
 
 		return this.authService.validateSocialLogin('twitter', socialData);

@@ -8,7 +8,7 @@ import { AuthResetPasswordDto } from './dto/auth-reset-password.dto';
 import { AuthUpdateDto } from './dto/auth-update.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
-import { LoginResponseType } from './types/login-response.type';
+import { SessionType } from './types/login-response.type';
 import { NullableType } from '../utils/types/nullable.type';
 import { User } from 'src/users/domain/user';
 import { AuthResendEmailDto } from './dto/auth-resend-email.dto';
@@ -26,8 +26,8 @@ export class AuthController {
 	})
 	@Post('email/login')
 	@HttpCode(HttpStatus.OK)
-	@ApiOkResponse({ type: LoginResponseType })
-	public login(@Body() loginDto: AuthEmailLoginDto): Promise<LoginResponseType> {
+	@ApiOkResponse({ type: SessionType })
+	public login(@Body() loginDto: AuthEmailLoginDto): Promise<SessionType> {
 		return this.service.validateLogin(loginDto);
 	}
 
@@ -85,8 +85,24 @@ export class AuthController {
 	@Post('refresh')
 	@UseGuards(AuthGuard('jwt-refresh'))
 	@HttpCode(HttpStatus.OK)
-	@ApiOkResponse({ type: LoginResponseType })
-	public refresh(@Request() request): Promise<Omit<LoginResponseType, 'user'>> {
+	@ApiOkResponse({
+		schema: {
+			type: 'object',
+			required: ['token', 'refreshToken', 'tokenExpires'],
+			properties: {
+				token: {
+					type: 'string',
+				},
+				refreshToken: {
+					type: 'string',
+				},
+				tokenExpires: {
+					type: 'number',
+				},
+			},
+		},
+	})
+	public refresh(@Request() request): Promise<Omit<SessionType, 'user'>> {
 		return this.service.refreshToken({
 			sessionId: request.user.sessionId,
 		});
