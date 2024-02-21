@@ -72,7 +72,13 @@ export class UsersDocumentRepository implements UserRepository {
 		delete clonedPayload.id;
 
 		const filter = { _id: id };
-		const userObject = await this.usersModel.findOneAndUpdate(filter, clonedPayload);
+		const userObject = await this.usersModel.findOneAndUpdate(filter, clonedPayload, {
+			new: true,
+		});
+
+		if (clonedPayload.photo?.id && userObject && userObject.photo && userObject.photo._id) {
+			userObject.photo._id = clonedPayload.photo?.id;
+		}
 
 		return userObject ? UserMapper.toDomain(userObject) : null;
 	}

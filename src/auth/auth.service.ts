@@ -21,6 +21,7 @@ import { Session } from 'src/session/domain/session';
 import { UsersService } from 'src/users/users.service';
 import { SessionService } from 'src/session/session.service';
 import { AuthResendEmailDto } from './dto/auth-resend-email.dto';
+import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class AuthService {
@@ -30,6 +31,7 @@ export class AuthService {
 		private sessionService: SessionService,
 		private mailService: MailService,
 		private configService: ConfigService<AllConfigType>,
+		private fileService: FilesService,
 	) {}
 
 	async validateLogin(loginDto: AuthEmailLoginDto): Promise<SessionType> {
@@ -414,6 +416,10 @@ export class AuthService {
 	}
 
 	async update(userJwtPayload: JwtPayloadType, userDto: AuthUpdateDto): Promise<NullableType<User>> {
+		const currentUser = await this.usersService.findOne({
+			id: userJwtPayload.id,
+		});
+
 		if (userDto.password) {
 			if (!userDto.oldPassword) {
 				throw new HttpException(
@@ -426,10 +432,6 @@ export class AuthService {
 					HttpStatus.UNPROCESSABLE_ENTITY,
 				);
 			}
-
-			const currentUser = await this.usersService.findOne({
-				id: userJwtPayload.id,
-			});
 
 			if (!currentUser) {
 				throw new HttpException(
@@ -474,6 +476,12 @@ export class AuthService {
 					},
 					excludeId: userJwtPayload.sessionId,
 				});
+			}
+		}
+
+		if (currentUser?.photo?.id) {
+			if (currentUser?.photo?.id != userDto.photo?.id) {
+				await this.fileService.softDelete(currentUser.photo);
 			}
 		}
 

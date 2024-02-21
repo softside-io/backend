@@ -31,4 +31,12 @@ export class FileDocumentRepository implements FileRepository {
 		const fileObject = await this.fileModel.findOne(fields);
 		return fileObject ? FileMapper.toDomain(fileObject) : null;
 	}
+
+	async softDelete(file: FileType): Promise<void> {
+		if (file) {
+			const fileObject = await this.fileModel.findById(file.id);
+			console.log(fileObject);
+			// await this.fileModel.findByIdAndDelete(file.id);
+		}
+	}
 }

@@ -6,4 +6,6 @@ export abstract class FileRepository {
 	abstract create(data: Omit<FileType, 'id'>): Promise<FileType>;
 
 	abstract findOne(fields: EntityCondition<FileType>): Promise<NullableType<FileType>>;
+
+	abstract softDelete(id: FileType): Promise<void>;
 }

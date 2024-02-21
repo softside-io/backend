@@ -40,9 +40,7 @@ export class UserMapper {
 		let photo: FileSchemaClass | undefined = undefined;
 
 		if (user.photo) {
-			photo = new FileSchemaClass();
-			photo._id = user.photo.id;
-			photo.path = user.photo.path;
+			photo = FileMapper.toPersistence(user.photo);
 		}
 
 		let status: Status | undefined = undefined;

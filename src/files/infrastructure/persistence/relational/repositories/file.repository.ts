@@ -27,4 +27,10 @@ export class FileRelationalRepository implements FileRepository {
 
 		return entity ? FileMapper.toDomain(entity) : null;
 	}
+
+	async softDelete(id: FileType): Promise<void> {
+		console.log(id);
+		return Promise.resolve();
+		// Promise.resolve({ raw: null } as DeleteResult);
+	}
 }

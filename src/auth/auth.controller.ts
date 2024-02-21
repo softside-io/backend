@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Request, Post, UseGuards, Patch, Delete, SerializeOptions } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiBearerAuth, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiNoContentResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
 import { AuthForgotPasswordDto } from './dto/auth-forgot-password.dto';
 import { AuthConfirmEmailDto } from './dto/auth-confirm-email.dto';
@@ -126,6 +126,7 @@ export class AuthController {
 	@Patch('me')
 	@UseGuards(AuthGuard('jwt'))
 	@HttpCode(HttpStatus.OK)
+	@ApiResponse({ type: User })
 	public update(@Request() request, @Body() userDto: AuthUpdateDto): Promise<NullableType<User>> {
 		return this.service.update(request.user, userDto);
 	}
