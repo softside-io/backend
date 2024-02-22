@@ -34,9 +34,7 @@ export class FileDocumentRepository implements FileRepository {
 
 	async softDelete(file: FileType): Promise<void> {
 		if (file) {
-			const fileObject = await this.fileModel.findById(file.id);
-			console.log(fileObject);
-			// await this.fileModel.findByIdAndDelete(file.id);
+			await this.fileModel.findByIdAndDelete(file.id);
 		}
 	}
 }

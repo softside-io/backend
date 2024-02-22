@@ -1,9 +1,9 @@
 import { User } from '../../../../domain/user';
 import { UserSchemaClass } from '../entities/user.schema';
-import { FileSchemaClass } from 'src/files/infrastructure/persistence/document/entities/file.schema';
 import { Status } from 'src/statuses/domain/status';
 import { Role } from 'src/roles/domain/role';
 import { FileMapper } from 'src/files/infrastructure/persistence/document/mappers/file.mapper';
+import { FileType } from 'src/files/domain/file';
 
 export class UserMapper {
 	static toDomain(raw: UserSchemaClass): User {
@@ -17,7 +17,7 @@ export class UserMapper {
 		user.firstName = raw.firstName;
 		user.lastName = raw.lastName;
 		if (raw.photo) {
-			user.photo = FileMapper.toDomain(raw.photo);
+			user.photo = raw.photo;
 		}
 		user.phone = raw.phone;
 		user.address = raw.address;
@@ -37,7 +37,7 @@ export class UserMapper {
 			role.id = user.role.id;
 		}
 
-		let photo: FileSchemaClass | undefined = undefined;
+		let photo: FileType | undefined = undefined;
 
 		if (user.photo) {
 			photo = FileMapper.toPersistence(user.photo);

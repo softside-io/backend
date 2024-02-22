@@ -9,9 +9,9 @@ export class FileMapper {
 		return file;
 	}
 	static toPersistence(file) {
-		const fileEntity = new FileSchemaClass();
+		const fileEntity = new FileType();
 		if (file.id) {
-			fileEntity._id = file.id;
+			fileEntity.id = file.id;
 		}
 		fileEntity.path = file.path;
 		return fileEntity;

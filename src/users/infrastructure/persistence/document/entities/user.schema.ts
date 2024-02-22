@@ -8,7 +8,7 @@ import { AuthProvidersEnum } from 'src/auth/auth-providers.enum';
 // in your project and return an schema entity directly in response.
 import { Exclude, Expose, Type } from 'class-transformer';
 import { EntityDocumentHelper } from 'src/utils/document-entity-helper';
-import { FileSchemaClass } from 'src/files/infrastructure/persistence/document/entities/file.schema';
+import { FileType } from 'src/files/domain/file';
 
 export type UserSchemaDocument = HydratedDocument<UserSchemaClass>;
 
@@ -68,10 +68,10 @@ export class UserSchemaClass extends EntityDocumentHelper {
 	address?: string;
 
 	@Prop({
-		type: FileSchemaClass,
+		type: FileType,
 	})
-	@Type(() => FileSchemaClass)
-	photo?: FileSchemaClass | null;
+	@Type(() => FileType)
+	photo?: FileType | null;
 
 	@Prop({
 		type: Role,

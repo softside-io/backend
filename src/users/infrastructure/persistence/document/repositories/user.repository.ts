@@ -76,10 +76,6 @@ export class UsersDocumentRepository implements UserRepository {
 			new: true,
 		});
 
-		if (clonedPayload.photo?.id && userObject && userObject.photo && userObject.photo._id) {
-			userObject.photo._id = clonedPayload.photo?.id;
-		}
-
 		return userObject ? UserMapper.toDomain(userObject) : null;
 	}
 
