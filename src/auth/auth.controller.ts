@@ -19,7 +19,9 @@ import { AuthResendEmailDto } from './dto/auth-resend-email.dto';
 	version: '1',
 })
 export class AuthController {
-	constructor(private readonly service: AuthService) {}
+	constructor(private readonly service: AuthService) {
+		//
+	}
 
 	@SerializeOptions({
 		groups: ['me'],
@@ -76,6 +78,18 @@ export class AuthController {
 	@ApiOkResponse({ type: User })
 	public me(@Request() request): Promise<NullableType<User>> {
 		return this.service.me(request.user);
+	}
+
+	@ApiBearerAuth()
+	@SerializeOptions({
+		groups: ['me'],
+	})
+	@Get('check')
+	@UseGuards(AuthGuard('jwt'))
+	@HttpCode(HttpStatus.OK)
+	@ApiOkResponse({ type: Boolean })
+	public check(@Request() _request): boolean {
+		return true;
 	}
 
 	@ApiBearerAuth()
