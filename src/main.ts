@@ -26,7 +26,7 @@ async function bootstrap() {
 	const config = new DocumentBuilder().setTitle('API').setDescription('API docs').setVersion('1.0').addBearerAuth().build();
 
 	const options: SwaggerDocumentOptions = {
-		operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
+		operationIdFactory: (_controllerKey: string, methodKey: string) => methodKey,
 	};
 
 	const document = SwaggerModule.createDocument(app, config, options);

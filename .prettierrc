@@ -4,7 +4,7 @@
 	"endOfLine": "auto",
 	"singleQuote": true,
 	"useTabs": true,
-  "overrides": [
+	"overrides": [
 		{
 			"files": "*.ts",
 			"options": {
@@ -15,5 +15,5 @@
 				"singleAttributePerLine": true
 			}
 		}
-  ]
+	]
 }

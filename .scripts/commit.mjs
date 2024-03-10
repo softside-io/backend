@@ -93,6 +93,7 @@ function startPrompt(jiraTicketId) {
 		{
 			type: 'confirm',
 			name: 'addFiles',
+			default: false,
 			message: 'Add all files automatically?',
 		},
 	]).then((answers) => {
@@ -122,6 +123,7 @@ function startPrompt(jiraTicketId) {
 			{
 				type: 'confirm',
 				message: 'Push changes?',
+				default: false,
 				name: 'push',
 			},
 		]).then((answers) => {

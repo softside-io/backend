@@ -22,7 +22,7 @@ export class AuthTwitterService {
 		});
 
 		const data: Twitter.ResponseData = await new Promise((resolve) => {
-			twitter.get('account/verify_credentials', { include_email: true }, (error, profile) => {
+			twitter.get('account/verify_credentials', { include_email: true }, (_error, profile) => {
 				resolve(profile);
 			});
 		});

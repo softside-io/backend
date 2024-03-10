@@ -26,7 +26,7 @@ const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig).isD
 					local: () =>
 						diskStorage({
 							destination: './files',
-							filename: (request, file, callback) => {
+							filename: (_request, file, callback) => {
 								callback(null, `${randomStringGenerator()}.${file.originalname.split('.').pop()?.toLowerCase()}`);
 							},
 						}),
@@ -48,7 +48,7 @@ const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig).isD
 							}),
 							acl: 'public-read',
 							contentType: multerS3.AUTO_CONTENT_TYPE,
-							key: (request, file, callback) => {
+							key: (_request, file, callback) => {
 								callback(null, `${randomStringGenerator()}.${file.originalname.split('.').pop()?.toLowerCase()}`);
 							},
 						});
@@ -56,7 +56,7 @@ const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig).isD
 				};
 
 				return {
-					fileFilter: (request, file, callback) => {
+					fileFilter: (_request, file, callback) => {
 						if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
 							return callback(
 								new HttpException(
@@ -86,4 +86,6 @@ const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig).isD
 	providers: [ConfigModule, ConfigService, FilesService],
 	exports: [FilesService, infrastructurePersistenceModule],
 })
-export class FilesModule {}
+export class FilesModule {
+	//
+}
